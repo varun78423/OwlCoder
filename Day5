@@ -1,0 +1,25 @@
+1235. Maximum Profit in Job Scheduling
+
+class Solution {
+public:
+    int Max_Profit(int ind,vector<pair<int,pair<int,int>>> &pairs,int n,vector<int>&dp,vector<int>&startTime){
+        if(ind>=n) return 0;
+        if(dp[ind]!=-1) return dp[ind];
+        //int var=binary_search(pairs,ind+1,pairs[ind].second.first);
+        int var=lower_bound(startTime.begin(),startTime.end(),pairs[ind].second.first)-startTime.begin();
+        int a=pairs[ind].second.second + Max_Profit(var,pairs,n,dp,startTime); 
+        int b= Max_Profit(ind+1,pairs,n,dp,startTime);
+        return dp[ind]=max(a,b);
+    }
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        int n=startTime.size();
+        vector<pair<int,pair<int,int>>> pairs;
+        for(int i=0;i<n;i++){
+            pairs.push_back({startTime[i],{endTime[i],profit[i]}});
+        }
+        sort(pairs.begin(),pairs.end());
+        sort(startTime.begin(),startTime.end());
+        vector<int> dp(n,-1);
+        return Max_Profit(0,pairs,n,dp,startTime);
+    }
+};
