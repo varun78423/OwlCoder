@@ -1,0 +1,14 @@
+2568.minImpossibleOR
+
+class Solution {
+public:
+    int minImpossibleOR(vector<int>& nums) {
+        int n=nums.size();
+        map<int,int>mpp;
+        for(int i=0;i<n;i++) mpp[nums[i]]++;
+        for(int i=0;i<32;i++){
+            if(mpp.find(1<<i) == mpp.end()) return (1<<i);
+        }
+        return -189;
+    }
+};
