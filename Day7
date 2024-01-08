@@ -1,0 +1,67 @@
+Merge 2 sorted linked list in reverse order
+------------------------------------------------------
+class Solution
+{
+    public:
+    struct Node * mergeResult(Node *node1,Node *node2)
+    {
+        Node* prev=NULL;
+        Node* dummy1=node1;
+        Node* dummy2=node2;
+        while(dummy1 != NULL && dummy2!=NULL){
+            Node* newNode=new Node();
+            if(dummy1->data <= dummy2->data){
+                newNode->data=dummy1->data;
+                newNode->next=prev;
+                prev=newNode;
+                dummy1=dummy1->next;
+            }
+            else{
+                newNode->data=dummy2->data;
+                newNode->next=prev;
+                prev=newNode;
+                dummy2=dummy2->next;
+            }
+        }
+        while(dummy1!=NULL){
+            Node* newNode=new Node();
+            newNode->data=dummy1->data;
+            newNode->next=prev;
+            prev=newNode;
+            dummy1=dummy1->next;
+        }
+        while(dummy2!=NULL){
+            Node* newNode=new Node();
+            newNode->data=dummy2->data;
+            newNode->next=prev;
+            prev=newNode;
+            dummy2=dummy2->next;
+        }
+        return prev;
+    }  
+};
+
+Arithmetic slices 2
+------------------------------------------
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        long long n=nums.size();
+        long long ans=0;
+        unordered_map<long long,unordered_map<long long,long long>> mpp;
+        for(long long i=1;i<n;i++){
+            for(long long j=i-1;j>=0;j--){
+                long long diff=(2ll*nums[i]-2ll*nums[j]);
+                if(mpp[j].find(diff)!=mpp[j].end()){
+                    long long count=1+(mpp[j][diff]);
+                    ans+=mpp[j][diff];
+                    mpp[i][diff]+=count;
+                }
+                else{
+                    mpp[i][diff]+=1;
+                }
+            }
+        }
+        return (int)ans;
+    }
+};
