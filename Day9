@@ -1,0 +1,16 @@
+201.Bitwise And of a Range
+-------------------------
+class Solution {
+public:
+    int rangeBitwiseAnd(int left, int right) {
+        int i,ans=0;
+        for(i=31;i>=0;i--){
+            int val1=((1<<i)&(left));
+            int val2=((1<<i)&(right));
+            //cout<<i<<" "<<val1<<" "<<val2<<endl;
+            if(val1 != val2) break;
+            else if(val1>0 && val2>0) ans+=(1<<i);
+        }
+        return ans;
+    }
+};
