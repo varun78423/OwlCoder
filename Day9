@@ -1,3 +1,11 @@
+must do math:
+1.Big integers
+2.Gcd,lcm,Euclidean,Extended Euclidian Algorithm
+3.Sieve and Segmented Tree
+4.MOdulo Arithmetic,Modulo inverse
+
+
+
 201.Bitwise And of a Range
 -------------------------
 class Solution {
@@ -10,6 +18,39 @@ public:
             //cout<<i<<" "<<val1<<" "<<val2<<endl;
             if(val1 != val2) break;
             else if(val1>0 && val2>0) ans+=(1<<i);
+        }
+        return ans;
+    }
+};
+--------------------------------------------------
+Factorials of large numbers
+
+class Solution {
+public:
+    typedef long long ll;
+    vector<int> factorial(int N){
+        vector<ll> factArr(1e4,-1);
+        vector<int> ans;
+        factArr[0]=1;
+        ll carry=0;
+        for(ll i=2;i<=N;i++){
+            ll j=0;
+            while(factArr[j]>=0){
+               ll val=(factArr[j]*i)+carry;
+               factArr[j]=(val)%10;
+               carry=(val)/10;
+               j++;
+            }
+            if(carry!=0) {
+                while(carry>0){
+                    factArr[j]=carry%10;
+                    carry=carry/10;
+                    j++;
+                }
+            }
+        }
+        for(ll i=1e4-1;i>=0;i--){
+            if(factArr[i]!=-1) ans.push_back((int)factArr[i]);
         }
         return ans;
     }
