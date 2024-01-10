@@ -1,0 +1,25 @@
+largest subarray with divisible by k
+-----------------------------------------------------------------
+class Solution{
+public:	
+	int longSubarrWthSumDivByK(int arr[], int n, int k)
+	{
+	   int ans=0;
+	   unordered_map<int,int> mpp;
+	   vector<int> prefix(n,0);
+	   prefix[0]=((arr[0]%k)+k)%k;
+	   for(int i=1;i<n;i++) prefix[i]=(((prefix[i-1]+arr[i])%k)+k)%k;
+	   for(int i=0;i<n;i++){
+	       if(prefix[i]==0){
+	           ans=max(ans,(i+1));
+	       }
+	       if(mpp.find(prefix[i]) != mpp.end()){
+	           ans=max(ans,i-mpp[prefix[i]]);
+	       }
+	       else {
+	          mpp.insert({prefix[i],i});
+	       }
+	   }
+	   return ans;
+	}
+};
