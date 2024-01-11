@@ -1,0 +1,41 @@
+primes(sieve)
+----------------------------------------
+class Solution{
+public:
+   int MAXX=100005;
+    vector<int> primes;
+    Solution(){
+        for(int i=0;i<MAXX;i++) primes.push_back(1);
+    }
+    void sieve(){
+        primes[0]=0,primes[1]=0;
+        for(int i=2;i*i<=MAXX;i++){
+            if(primes[i]==1){
+                for(int j=i*i;j<MAXX;j+=i){
+                  primes[j]=0; 
+                }
+            }
+        }
+    }
+};
+factorization
+--------------------------------------------------
+class Solution{
+public:
+    int MAXX=100005;
+    vector<int> primes;
+    Solution(){
+        for(int i=0;i<MAXX;i++) primes.push_back(0);
+    }
+    void sieve(){
+        primes[0]=1,primes[1]=1;
+        for(int i=2;i<MAXX;i++) primes[i]=i;
+        for(int i=2;i*i<=MAXX;i++){
+            if(primes[i]==i){
+                for(int j=i*i;j<MAXX;j+=i){
+                  primes[j]=i; 
+                }
+            }
+        }
+    }
+};
